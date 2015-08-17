@@ -5,9 +5,11 @@ namespace app\controllers;
 use Yii;
 use app\models\Document;
 use app\models\DocumentSearch;
+use app\models\Template;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 /**
  * DocumentController implements the CRUD actions for Document model.
@@ -25,6 +27,8 @@ class DocumentController extends Controller
             ],
         ];
     }
+
+
 
     /**
      * Lists all Document models.
@@ -51,6 +55,25 @@ class DocumentController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+     public function actionViewdoc($id)
+    {
+        
+        $model = $this->findModel($id);
+        $main_path = $model->template->main_path;
+        $path_html  = './templates/'.$main_path.'/index.html';
+        $css_path = Url::home().'./templates/'.$main_path.'/style.css';
+        $js_path = Url::home().'./templates/'.$main_path.'/main.js';
+        $lib_path = Url::home().'./lib';
+        $template_json = Template::generateTemplateData ($model->template_id);
+        $file =  file_get_contents($path_html);
+        $file = str_replace("{{@css}}", $css_path, $file);
+        $file = str_replace("{{@js}}", $js_path, $file);
+        $file = str_replace("{{@lib}}", $lib_path, $file);
+        $file = str_replace("{{@preset}}", $model->data, $file);
+        $file = str_replace("{{@template}}", $template_json, $file);
+        echo $file;
     }
 
     /**

@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'preset_json:ntext',
+            
             'main_path:ntext',
             'create_time',
             'update_time',

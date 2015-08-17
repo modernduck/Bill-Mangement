@@ -3,6 +3,9 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\Document;
+use app\models\DocumentSearch;
+
 use app\models\Template;
 use app\models\TemplateSearch;
 use yii\web\Controller;
@@ -50,8 +53,15 @@ class TemplateController extends Controller
      */
     public function actionView($id)
     {
+        $documentSearchModel = new DocumentSearch();
+        $documentProvider = $documentSearchModel->search(Yii::$app->request->queryParams);
+
+        
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'documentProvider' => $documentProvider,
+            'documentSearchModel' => $documentSearchModel
         ]);
     }
 
@@ -107,10 +117,13 @@ class TemplateController extends Controller
         $css_path = Url::home().'./templates/'.$model->main_path.'/style.css';
         $js_path = Url::home().'./templates/'.$model->main_path.'/main.js';
         $lib_path = Url::home().'./lib';
+        $template_json = Template::generateTemplateData($id);
         $file =  file_get_contents($path_html);
         $file = str_replace("{{@css}}", $css_path, $file);
         $file = str_replace("{{@js}}", $js_path, $file);
         $file = str_replace("{{@lib}}", $lib_path, $file);
+        $file = str_replace("{{@preset}}", $model->preset_json, $file);
+        $file = str_replace("{{@template}}", $template_json, $file);
         echo $file;
     }
 

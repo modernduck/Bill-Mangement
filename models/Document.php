@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use yii\helpers\Url;
 /**
  * This is the model class for table "document".
  *
@@ -33,7 +33,7 @@ class Document extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['template_id', 'name', 'index', 'data', 'update_time'], 'required'],
+            [['template_id', 'name', 'index', 'data'], 'required'],
             [['template_id', 'index'], 'integer'],
             [['data'], 'string'],
             [['create_time', 'update_time'], 'safe'],
@@ -63,5 +63,25 @@ class Document extends \yii\db\ActiveRecord
     public function getTemplate()
     {
         return $this->hasOne(Template::className(), ['id' => 'template_id']);
+    }
+
+    public function beforeSave($insert)
+    {
+        $this->update_time = date('Y-m-d H:i:s');
+        return parent::beforeSave($insert);
+    }
+
+    public function getInfo()
+    {
+        return array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "index" => $this->index,
+            "data" => $this->data,
+            "create_time" => $this->create_time,
+            "update_time" => $this->update_time, 
+            "uri" => Url::to(["document/viewdoc", "id" => $this->id])
+
+        );
     }
 }

@@ -1,6 +1,17 @@
-/*
-	Normal style 
-*/
+@media print
+{
+	#hiderow,
+	.delete, .hideprint {
+	  display: none;
+	}
+
+
+
+	textarea
+	{
+		resize:none;
+	}	
+}
 
 #header
 {
@@ -20,26 +31,6 @@ body
 {
 	width:320px;
 }
-
-/*
-	Print
-*/
-
-@media print {
-
-	#hiderow,.delete, .hideprint {
-	  display: none;
-	}
-
-
-
-	textarea
-	{
-		resize:none;
-	}
-
-}
-
 
 /*
 	 CSS-Tricks Example

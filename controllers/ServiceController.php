@@ -26,20 +26,24 @@ class ServiceController extends ActiveController
             return $actions;
    }
 
-   public function actionSavedocs($id)
+   public function actionSavedocs()
    {
-      $template_id = $id;
+      
       $request_body = file_get_contents('php://input');
       $data = json_decode($request_body);
+      $template_id = $data->id;
       $document = new Document();
       $document->template_id = $template_id;
+
+
+
       $document->name =  date('l jS \of F Y h:i:s A');
-      $document->index = $data->index;
-      $document->data = json_encode($data);
+      $document->index = $data->data->paidAmount;
+      $document->data = json_encode($data->data);
       $document->save();
 
     //$id => template_id
-        return $document;
+        return $document->getInfo();
 
    }
 }

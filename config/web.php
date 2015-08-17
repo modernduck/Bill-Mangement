@@ -46,7 +46,7 @@ $config = [
                 [
                     'class' => 'yii\rest\UrlRule', 'controller' => 'service',
                     'extraPatterns' => [
-                        'POST savedocs/{id}' => 'savedocs'
+                        'POST savedocs' => 'savedocs'
                         
                     ],
                 ],

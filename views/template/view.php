@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Template */
@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+        <?= Html::a('Create Document', ['newdoc', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -25,16 +26,39 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
+    <?= GridView::widget([
+        'dataProvider' => $documentProvider,
+        'filterModel' => $documentSearchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
             'id',
+            
             'name',
-            'preset_json:ntext',
-            'main_path:ntext',
-            'create_time',
-            'update_time',
+            // 'balance',
+            // 'create_time',
+            // 'update_time',
+
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'view' => function ($url, $item , $key)
+                    {
+                        
+                            return  Html::a('<span class="glyphicon  glyphicon-list-alt" aria-hidden="true"></span> VIEW ', ['document/viewdoc', 'id' => $item->id ]);
+                        return '';
+                    },
+                    'update' => function ($url, $item, $key)
+                    {
+                        
+                            return  Html::a('<span class="glyphicon  glyphicon glyphicon-th-list" aria-hidden="true"></span> EDIT', ['document/view', 'id' => $item->id ]);
+                        return '';
+                    }
+                ],
+                'template' => "{view} {update}",
+
+            ],
         ],
-    ]) ?>
+    ]); ?>
 
 </div>

@@ -97,4 +97,13 @@ class Template extends \yii\db\ActiveRecord
         $this->update_time = date('Y-m-d H:i:s');
         return parent::beforeSave($insert);
     }
+
+    public static function generateTemplateData ($template_id)
+    {
+        return json_encode(array(
+            "id" => $template_id,
+            "saveUri" => Url::to(["services/savedoc"])
+        ));
+    }
+   
 }
