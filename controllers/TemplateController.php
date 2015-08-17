@@ -54,7 +54,10 @@ class TemplateController extends Controller
     public function actionView($id)
     {
         $documentSearchModel = new DocumentSearch();
-        $documentProvider = $documentSearchModel->search(Yii::$app->request->queryParams);
+        $params = Yii::$app->request->queryParams;
+        $params['DocumentSearch']['template_id'] = $id;
+        
+        $documentProvider = $documentSearchModel->search($params);
 
         
 
