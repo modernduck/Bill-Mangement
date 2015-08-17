@@ -104,11 +104,13 @@ class TemplateController extends Controller
     {
         $model = $this->findModel($id);
         $path_html  = './templates/'.$model->main_path.'/index.html';
-        $css_path = './templates/'.$model->main_path.'/style.css';
-        $js_path = './templates/'.$model->main_path.'/main.js';
+        $css_path = Url::home().'./templates/'.$model->main_path.'/style.css';
+        $js_path = Url::home().'./templates/'.$model->main_path.'/main.js';
+        $lib_path = Url::home().'./lib';
         $file =  file_get_contents($path_html);
         $file = str_replace("{{@css}}", $css_path, $file);
         $file = str_replace("{{@js}}", $js_path, $file);
+        $file = str_replace("{{@lib}}", $lib_path, $file);
         echo $file;
     }
 
@@ -127,6 +129,7 @@ class TemplateController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'errors' => $model->errors,
             ]);
         }
     }

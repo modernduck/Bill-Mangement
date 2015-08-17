@@ -12,16 +12,17 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'type')->textInput() ?>
+    
 
     <?= $form->field($model, 'template_id')->textInput() ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'amount')->textInput() ?>
+    
 
-    <?= $form->field($model, 'balance')->textInput() ?>
+    <?= $form->field($model, 'index')->textInput() ?>
 
+       <?= $form->field($model, 'data')->textarea(['rows' => 6]) ?>
     <?= $form->field($model, 'create_time')->textInput() ?>
 
     <?= $form->field($model, 'update_time')->textInput() ?>

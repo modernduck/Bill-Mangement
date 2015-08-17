@@ -26,8 +26,4 @@ phpunit.phar
 # local phpunit config
 /phpunit.xml
 
-web/templates/2015-08-16-21-08-09-1853568433/index.html
-
-web/templates/2015-08-16-21-08-09-1853568433/main.js
-
-web/templates/2015-08-16-21-08-09-1853568433/style.css
+web/templates/*

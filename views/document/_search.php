@@ -17,13 +17,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'type') ?>
+
 
     <?= $form->field($model, 'template_id') ?>
 
     <?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'amount') ?>
+    <?= $form->field($model, 'index') ?>
 
     <?php // echo $form->field($model, 'balance') ?>
 

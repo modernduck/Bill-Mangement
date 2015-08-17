@@ -40,9 +40,9 @@ class Template extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'preset_json'], 'required'],
-            [['html_file'], 'file', 'extensions' => 'html, htm'],
-            [['js_file'], 'file' ],
-            [['css_file'], 'file' ],
+            [['html_file'], 'file','skipOnEmpty' => true, 'extensions' => 'html, htm'],
+            [['js_file'], 'file', 'skipOnEmpty' => true ],
+            [['css_file'], 'file', 'skipOnEmpty' => true ],
             [['preset_json', 'main_path'], 'string'],
             [['create_time', 'update_time'], 'safe'],
             [['name'], 'string', 'max' => 200]

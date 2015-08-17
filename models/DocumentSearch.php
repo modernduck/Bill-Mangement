@@ -18,7 +18,7 @@ class DocumentSearch extends Document
     public function rules()
     {
         return [
-            [['id', 'type', 'template_id', 'amount', 'balance'], 'integer'],
+            [['id', 'template_id', 'index'], 'integer'],
             [['name', 'create_time', 'update_time'], 'safe'],
         ];
     }
@@ -57,10 +57,10 @@ class DocumentSearch extends Document
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'type' => $this->type,
+            
             'template_id' => $this->template_id,
-            'amount' => $this->amount,
-            'balance' => $this->balance,
+            
+            'index' => $this->index,
             'create_time' => $this->create_time,
             'update_time' => $this->update_time,
         ]);

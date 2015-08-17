@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+	
+	<title>Editable receipt</title>
+	
+	<link rel='stylesheet' type='text/css' href='{{@css}}' />
+	<script type="text/javascript" src="{{@lib}}/lodash.min.js"></script>
+	<script type="text/javascript" src="{{@lib}}/angular.min.js"></script>
+	<script type="text/javascript" src="{{@js}}"></script>	
+
+</head>
+
+<body ng-app="billing.editor">
+
+	<div id="page-wrap" ng-controller="ReceiptCtrl">
+		<textarea id="header" ng-model="test"></textarea>
+		
+		<div id="identity">
+			<div style="float:left;min-width:300px;">
+				<textarea ng-model="receipt.our.name" style="display:block;font-weight:bold;font-size:1.2em;"></textarea >
+            	<textarea   ng-model="receipt.our.address" style="display:block;min-height:70px;"></textarea>
+            	
+            </div>
+
+            <div id="customer">
+
+	            <table id="meta">
+	                <tr>
+
+	                    <td class="meta-head">วันที่</td>
+	                    <td><textarea id="date" ng-model="receipt.date"></textarea></td>
+	                </tr>
+	                <tr>
+	                    <td class="meta-head">เลขประจำตัวผู้เสียภาษี</td>
+	                    <td><textarea id="date" ng-model="receipt.our.tax"></textarea></div></td>
+	                </tr>
+	                <tr>
+	                    <td class="meta-head">เบอร์โทรศัพท์</td>
+	                    <td><textarea id="date" ng-model="receipt.our.phone"></textarea></div></td>
+	                </tr>
+	                <tr>
+	                    <td class="meta-head">อีเมล</td>
+	                    <td><textarea id="date" ng-model="receipt.our.email"></textarea></div></td>
+	                </tr>
+
+	            </table>
+			
+			</div>
+		
+		</div>
+		
+		<div style="clear:both"></div>
+		<div style="height:25px;"></div>
+		<hr style="border:0px;height:3px;background:black;"/>
+		<div style="height:25px;"></div>
+		<div id="customer">
+			<div style="float:left;min-width:300px;">
+            	<textarea style="font-weight:bold;font-size:1.3em;display:block" ng-model="receipt.customer.name"></textarea>
+            	<textarea style="display:block;min-height:70px;" ng-model="receipt.customer.address"></textarea>
+            </div>
+            <table id="meta">
+                <tr>
+                    <td class="meta-head">เลขประจำตัวผู้เสียภาษี</td>
+                    <td><textarea ng-model="receipt.customer.tax"></textarea></td>
+                </tr>
+              
+
+            </table>
+		
+		</div>
+		
+		<table id="items">
+		
+		  <tr>
+		      <th>รายการ</th>
+		      <th>รายละเอียด</th>
+		      <th>ราคา<br/>(ต่อหน่วย)</th>
+		      <th>จำนวนหน่วย</th>
+		      <th>ราคา</th>
+		  </tr>
+		  
+		  <tr class="item-row" ng-repeat="item in receipt.orders">
+		      <td class="item-name"><div class="delete-wpr"><textarea ng-model="item.name"></textarea><a class="delete" href="javascript:;" title="Remove row" ng-click="deleteRow(item)">X</a></div></td>
+		      <td class="description"><textarea ng-model="item.description"></textarea></td>
+		      <td>{{receipt.currency}}<textarea class="cost" ng-model="item.cost"></textarea></td>
+		      <td><textarea class="qty" ng-model="item.quantity"></textarea></td>
+		      <td><span class="price">{{item.cost * item.quantity | currency:receipt.currency}}</span></td>
+		  </tr>
+		  
+		  
+		  
+		  <tr id="hiderow">
+		    <td colspan="5"><a id="addrow" href="javascript:;" ng-click="newRow()" title="Add a row">Add a row</a></td>
+		  </tr>
+		  
+		  <tr>
+		      <td colspan="2" class="blank"> </td>
+		      <td colspan="2" class="total-line">ยอดรวม</td>
+		      <td class="total-value"><div id="subtotal">{{receipt | subtotal | currency:receipt.currency}}</div></td>
+		  </tr>
+		  <tr>
+
+		      <td colspan="2" class="blank"> </td>
+		      <td colspan="2" class="total-line">ยอดรวมเบ็ดเสร็จ</td>
+		      <td class="total-value"><div id="total">{{receipt | subtotal | currency:receipt.currency}}</div></td>
+		  </tr>
+		  
+		
+		</table>
+		<div style="margin-top:25px;width:150px;text-align:center;">
+			<h4>ผู้รับเงิน</h4>
+			<div style="min-height:50px;">
+				<img src="img/signature.jpg" style="height:50px;width:auto;" />
+			</div>
+			<p>................................</p>
+			<p>{{receipt.recipient}}</p>
+		</div>
+	</div>
+	
+</body>
+
+</html>
