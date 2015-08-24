@@ -38,7 +38,7 @@ class ServiceController extends ActiveController
 
 
       $document->name =  date('l jS \of F Y h:i:s A');
-      $document->index = $data->data->paidAmount;
+      $document->index = $data->data->index;
       $document->data = json_encode($data->data);
       $document->save();
 
